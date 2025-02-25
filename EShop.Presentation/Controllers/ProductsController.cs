@@ -26,7 +26,6 @@ namespace EShop.Presentation.Controllers
         public Product GetFirst()
         {
             return products[0];
-            ;
         }
 
     }
