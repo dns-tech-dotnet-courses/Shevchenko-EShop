@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EShop.Application;
+using System.Diagnostics;
 
 namespace EShop.Presentation.Controllers
 {
@@ -26,6 +27,19 @@ namespace EShop.Presentation.Controllers
 
             var productsDto = products.Select(p => new ProductDto(p.Name, p.Price));
             return productsDto;
+        }
+
+        [HttpGet("getByName")]
+        public IEnumerable<Eshop.Domain.Product> GetByName([FromQuery] string? Name)
+        {
+
+            var handler = new ProductHandler();
+            var products = handler.Get();
+
+            if (!string.IsNullOrEmpty(Name))
+                products = products.Where(p => p.Name == Name);
+
+            return products;
         }
 
     }
