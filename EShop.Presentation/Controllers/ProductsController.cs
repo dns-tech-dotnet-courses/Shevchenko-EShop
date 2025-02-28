@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EShop.Application;
 using System.Diagnostics;
+using Ehop.DAL;
 
 namespace EShop.Presentation.Controllers
 {
@@ -9,11 +10,12 @@ namespace EShop.Presentation.Controllers
     public class ProductsController : ControllerBase
     {
 
-        [HttpGet]
+        [HttpGet("getAll")]
         public IEnumerable<ProductDto> Get([FromQuery] decimal? priceFilter, [FromQuery] string? priceSortOrder)
         {
-            var handler = new ProductHandler();
-            var products = handler.Get();
+            var productRepository = new JsonProductRepository();
+            var productHandler = new ProductHandler(productRepository);
+            var products = productHandler.Get();
 
             if (priceFilter is not null)
                 products = products.Where(p => p.Price <= priceFilter);
@@ -29,11 +31,22 @@ namespace EShop.Presentation.Controllers
             return productsDto;
         }
 
+        [HttpGet("getById")]
+        public IEnumerable<ProductDto> GetById([FromQuery] int id)
+        {
+            var productRepository = new JsonProductRepository();
+            var handler = new ProductHandler(productRepository);
+            var products = handler.GetById(id);
+            return products.Select(product => new ProductDto(product.Name, product.Price));
+        }
+
+
         [HttpGet("getByName")]
         public IEnumerable<Eshop.Domain.Product> GetByName([FromQuery] string? Name)
         {
 
-            var handler = new ProductHandler();
+            var productRepository = new JsonProductRepository();
+            var handler = new ProductHandler(productRepository);
             var products = handler.Get();
 
             if (!string.IsNullOrEmpty(Name))
