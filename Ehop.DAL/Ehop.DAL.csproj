@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ehop.DAL\Ehop.DAL.csproj" />
     <ProjectReference Include="..\Eshop.Domain\Eshop.Domain.csproj" />
   </ItemGroup>
 
