@@ -42,16 +42,12 @@ namespace EShop.Presentation.Controllers
 
 
         [HttpGet("getByName")]
-        public IEnumerable<Eshop.Domain.Product> GetByName([FromQuery] string? Name)
+        public IEnumerable<Eshop.Domain.Product> GetByName([FromQuery] string? name)
         {
 
             var productRepository = new JsonProductRepository();
             var handler = new ProductHandler(productRepository);
-            var products = handler.Get();
-
-            if (!string.IsNullOrEmpty(Name))
-                products = products.Where(p => p.Name == Name);
-
+            var products = handler.GetByName(name);
             return products;
         }
 

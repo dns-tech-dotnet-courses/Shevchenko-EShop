@@ -18,5 +18,31 @@
         "Id": 4,
         "Name": "Iphone3",
         "Price": 666
+    },
+    {
+        "Id": 5,
+        "Name": "Dendi",
+        "Price": 777
+    },
+    {
+        "Id": 6,
+        "Name": "PS4",
+        "Price": 888
+    },
+    {
+        "Id": 7,
+        "Name": "PS5",
+        "Price": 999
+    },
+    {
+        "Id": 8,
+        "Name": "Sega",
+        "Price": 111
+    }
+    ,
+    {
+        "Id": 9,
+        "Name": "Xbox",
+        "Price": 222
     }
 ]
