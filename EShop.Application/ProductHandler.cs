@@ -24,5 +24,17 @@ namespace EShop.Application
             var products = _productRepository.Get();
             return products.Where(product => product.Id == id);
         }
+
+        
+        public IEnumerable<Product> GetByName(string name)
+        {
+            var products = _productRepository.Get();
+
+            if (!string.IsNullOrEmpty(name))
+                products = products.Where(p => p.Name == name);
+
+            return products;
+              
+        }
     }
 }
