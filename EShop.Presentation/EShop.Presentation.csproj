@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ehop.DAL\Ehop.DAL.csproj" />
     <ProjectReference Include="..\EShop.Application\EShop.Application.csproj" />
   </ItemGroup>
 
