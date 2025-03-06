@@ -15,13 +15,13 @@ namespace EShop.Application
 
         public IEnumerable<Product> Get()
         {
-            var products = _productRepository.Get();
+            var products = _productRepository.GetFromNewJson();
             return products;
         }
 
         public IEnumerable<Product> GetById(int id)
         {
-            var products = _productRepository.Get();
+            var products = _productRepository.GetFromNewJson();
             return products.Where(product => product.Id == id);
         }
     }
