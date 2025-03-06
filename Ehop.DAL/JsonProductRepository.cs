@@ -3,7 +3,7 @@ using Eshop.Domain;
 
 namespace Ehop.DAL
 {
-    public class JsonProductRepository //: IProductRepository
+    public class JsonProductRepository : IProductRepository
     {
         public IEnumerable<Product> Get()
         {
