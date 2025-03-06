@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="NewJsonProducts.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Products.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
