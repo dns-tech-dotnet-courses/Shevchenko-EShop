@@ -8,7 +8,6 @@ namespace Eshop.Domain
 {
     public interface IProductRepository
     {
-       // public IEnumerable<Product> Get();
-        public IEnumerable<Product> GetFromNewJson();
+        public IEnumerable<Product> Get();
     }
 }
