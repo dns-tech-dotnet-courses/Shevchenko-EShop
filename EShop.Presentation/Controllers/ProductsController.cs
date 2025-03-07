@@ -48,11 +48,17 @@ namespace EShop.Presentation.Controllers
         {
 
             var products = _handler.Get();
-            
+
             if (!string.IsNullOrEmpty(Name))
                 products = products.Where(p => p.Name == Name);
 
             return products;
+        }
+
+        [HttpGet("getProductsCount")]
+        public int GetProductsCount()
+        {
+            return _handler.GetProductsCount();
         }
 
     }
