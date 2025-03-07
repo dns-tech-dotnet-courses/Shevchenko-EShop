@@ -4,11 +4,11 @@ using Npgsql;
 
 namespace Ehop.DAL
 {
-    
+
     public class DbProductRepository : IProductRepository
     {
         private readonly string _connectionString;
-       
+
         public DbProductRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("PostgresConnection")!;
@@ -38,6 +38,23 @@ namespace Ehop.DAL
             return products;
 
         }
+
+        public int GetProductsCount()
+        {
+            int productsCount;
+
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+                using var command = new NpgsqlCommand("SELECT COUNT(*) FROM products", connection);
+                using var reader = command.ExecuteReader();
+
+                productsCount = reader.Read() ? reader.GetInt32(0) : 0;
+            }
+
+            return productsCount;
+        }
+
 
     }
 

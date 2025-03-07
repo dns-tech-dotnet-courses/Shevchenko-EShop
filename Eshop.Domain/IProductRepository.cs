@@ -9,5 +9,6 @@ namespace Eshop.Domain
     public interface IProductRepository
     {
         public IEnumerable<Product> Get();
+        public int GetProductsCount();
     }
 }

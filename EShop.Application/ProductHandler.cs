@@ -24,5 +24,11 @@ namespace EShop.Application
             var products = _productRepository.Get();
             return products.Where(product => product.Id == id);
         }
+
+        public int GetProductsCount()
+        {
+            int productsCount = _productRepository.GetProductsCount();
+            return productsCount;
+        }
     }
 }
