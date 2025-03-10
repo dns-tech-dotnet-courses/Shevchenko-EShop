@@ -1,4 +1,6 @@
-﻿using Eshop.Domain;
+﻿using System.Collections.Generic;
+using Eshop.Domain;
+using FluentResults;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
@@ -8,34 +10,40 @@ namespace Ehop.DAL
     public class DbProductRepository : IProductRepository
     {
         private readonly string _connectionString;
-       
         public DbProductRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("PostgresConnection")!;
         }
-
-        public IEnumerable<Product> Get()
+        public async Task<Result<IEnumerable<Product>>> Get()
         {
             var products = new List<Product>();
-            using (var connection = new NpgsqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                using var command = new NpgsqlCommand("SELECT id, name, price::numeric FROM products", connection);
-                using var reader = command.ExecuteReader();
-
-                while (reader.Read())
+                using (var connection = new NpgsqlConnection(_connectionString))
                 {
-                    var product = new Product
+                    connection.Open();
+                    using var command = new NpgsqlCommand("SELECT id, name, price::numeric FROM products", connection);
+                    using var reader = await command.ExecuteReaderAsync();
+
+                    while (await reader.ReadAsync())
                     {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        Price = reader.GetDecimal(2)
-                    };
-                    products.Add(product);
+                        var product = new Product
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Price = reader.GetDecimal(2)
+                        };
+                        products.Add(product);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Возникло исключение при обращении к БД: " + ex.Message + "\n" + ex.StackTrace);
+                return Result.Fail<IEnumerable<Product>>("Возникло исключение при обращении к БД");
+            }
 
-            return products;
+            return Result.Ok<IEnumerable<Product>>(products);
 
         }
 

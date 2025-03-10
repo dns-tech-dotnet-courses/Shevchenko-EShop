@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentResults" Version="3.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ehop.DAL\Ehop.DAL.csproj" />
     <ProjectReference Include="..\Eshop.Domain\Eshop.Domain.csproj" />
   </ItemGroup>

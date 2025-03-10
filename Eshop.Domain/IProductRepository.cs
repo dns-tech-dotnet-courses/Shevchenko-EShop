@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentResults;
 
 namespace Eshop.Domain
 {
     public interface IProductRepository
     {
-        public IEnumerable<Product> Get();
+        public Task<Result<IEnumerable<Product>>> Get();
     }
 }
